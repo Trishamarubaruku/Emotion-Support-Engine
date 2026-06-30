@@ -1,7 +1,4 @@
-# logger.py
-import pandas as pd
 import os
-import datetime
 
 def save_to_csv(data):
     file_name = "emotion_logs.csv"
