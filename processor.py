@@ -1,19 +1,13 @@
 # processor.py
-import nltk
-from nltk.tokenize import word_tokenize
-nltk.download('punkt')
-
-EMOTION_KEYWORDS = {
-    'frustrated': 'frustration', 'angry': 'frustration',
-    'confused': 'confusion', 'lost': 'confusion',
-    'happy': 'joy', 'excited': 'joy'
-}
-
-def clean_and_boost(text):
+def get_emotion_prediction(text):
     text = text.lower()
-    tokens = word_tokenize(text)
-    scores = {cat: 1.0 for cat in set(EMOTION_KEYWORDS.values())}
-    for word in tokens:
-        if word in EMOTION_KEYWORDS:
-            scores[EMOTION_KEYWORDS[word]] += 10.0 # 10x Boost Logic
-    return scores
+    if any(word in text for word in ['happy', 'glad', 'joy', 'great', 'awesome']):
+        return 'happy'
+    elif any(word in text for word in ['sad', 'bad', 'hard', 'struggle', 'lost']):
+        return 'sad'
+    elif any(word in text for word in ['angry', 'frustrated', 'annoyed', 'mad']):
+        return 'angry'
+    elif any(word in text for word in ['confused', 'lost', 'help', 'understand', 'difficult']):
+        return 'confused'
+    else:
+        return 'neutral'
